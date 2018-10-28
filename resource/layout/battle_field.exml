@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin width="1280" height="1960" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect left="0" right="0" top="0" bottom="0" fillColor="0xcccccc"/>
+	<e:Group id="groupTop" height="200" left="0" right="0" top="0">
+		<e:Rect left="0" right="0" top="0" bottom="0" fillColor="0xffffff"/>
+		<e:Label id="lbNicknameTop" text="玩家" verticalCenter="0" left="60" textColor="0x000000" size="60" bold="true"/>
+		<e:Rect id="rectTurnTop" width="60" height="60" verticalCenter="0" right="60" fillColor="0x99cc00" ellipseWidth="60" ellipseHeight="60"/>
+
+	</e:Group>
+	<e:Scroller id="sclMap" width="1005" height="1005" horizontalCenter="0" verticalCenter="0">
+		<e:List id="listMap">
+			<e:layout>
+				<e:TileLayout horizontalGap="5" verticalGap="5" requestedRowCount="8" requestedColumnCount="8" orientation="rows"/>
+			</e:layout>
+		</e:List>
+	</e:Scroller>
+	<e:Group id="groupBtm" height="200" left="0" right="0" bottom="0">
+		<e:Rect left="0" right="0" top="0" bottom="0" fillColor="0xFFFFFF"/>
+		<e:Label id="lbNicknameBtm" text="玩家" verticalCenter="0" left="60" textColor="0x000000" size="60" bold="true"/>
+		<e:Rect id="rectTurnBtm" width="60" height="60" verticalCenter="0" right="60" fillColor="0x99CC00" ellipseWidth="60" ellipseHeight="60"/>
+
+	</e:Group>
+</e:Skin>

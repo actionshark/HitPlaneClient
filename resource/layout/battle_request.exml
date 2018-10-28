@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin width="600" height="400" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect left="0" right="0" top="0" bottom="0" ellipseWidth="60" ellipseHeight="60" fillColor="0xffffff" strokeWeight="2" strokeColor="0xff9966"/>
+	<e:Label id="lbText" text="提示" textColor="0x000000" size="50" left="60" right="60" textAlign="center" verticalCenter="-70"/>
+	<e:Group id="groupAccept" width="160" height="70" bottom="30" left="80">
+		<e:Rect left="0" right="0" top="0" bottom="0" fillColor="0xff9966" ellipseWidth="30" ellipseHeight="30"/>
+		<e:Label text="接受" horizontalCenter="0" verticalCenter="0" size="40"/>
+	</e:Group>
+	<e:Group id="groupCancel" width="160" height="70" bottom="30" horizontalCenter="0">
+		<e:Rect left="0" right="0" top="0" bottom="0" fillColor="0xFF9966" ellipseWidth="30" ellipseHeight="30"/>
+		<e:Label text="取消" horizontalCenter="0" verticalCenter="0" size="40"/>
+	</e:Group>
+	<e:Group id="groupRefuse" width="160" height="70" bottom="30" right="80">
+		<e:Rect left="0" right="0" top="0" bottom="0" fillColor="0xFF9966" ellipseWidth="30" ellipseHeight="30"/>
+		<e:Label text="取消" horizontalCenter="0" verticalCenter="0" size="40"/>
+	</e:Group>
+</e:Skin>

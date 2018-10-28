@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin width="1280" height="160" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect left="0" right="0" top="0" bottom="0" ellipseWidth="30" ellipseHeight="30" fillColor="0xeeeeee"/>
+	<e:Label id="lbNickname" text="昵称" verticalCenter="0" textColor="0x000000" size="60" left="60" bold="true"/>
+	<e:Label id="lbStatus" text="状态" verticalCenter="0" size="60" right="60" textColor="0x000000"/>
+</e:Skin>

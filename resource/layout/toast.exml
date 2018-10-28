@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin width="900" height="115" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<w:Config id="164c5d1150b" />
+	<e:Rect left="0" right="0" top="0" bottom="0"  ellipseWidth="60" ellipseHeight="60" fillColor="0x999999"/>
+	<e:Label id="lbText" text="文本" horizontalCenter="0" verticalCenter="0" size="50" textAlign="center" width="660"
+	         textColor="0x000000" />
+</e:Skin>
