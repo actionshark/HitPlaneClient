@@ -16,7 +16,8 @@ class Connection {
 
     private ws: egret.WebSocket;
 
-    public url: string;
+    public url: string ="ws://111.231.232.54:10001/hitplane";
+    // public url: string ="ws://127.0.0.1:10001/hitplane";
 
     private isConnecting: boolean = false;
 
@@ -69,7 +70,7 @@ class Connection {
         this.isConnecting = false;
 
         var login: upload.Login = new upload.Login();
-        login.username = "test";
+        login.username = Me.deviceId || "test";
         login.send();
     }
 

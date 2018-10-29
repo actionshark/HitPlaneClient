@@ -10,9 +10,7 @@ class Bridge {
             Main.instance.screenWidth = json.screenWidth;
             Main.instance.screenHeight = json.screenHeight;
 
-            if (json.contentHeight && json.contentHeight > 0) {
-                Main.instance.screenHeight = json.contentHeight;
-            }
+            Me.deviceId = StringUtil.md5(json.deviceId);
         });
     }
 }

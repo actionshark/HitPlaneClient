@@ -12,8 +12,10 @@ class Hall extends eui.Compont {
 
     private sclUsers: eui.Scroller;
     private listUsers: eui.List;
+    private groupRefresh: eui.Group;
 
     private lbNickname: eui.Label;
+    private groupModify: eui.Group;
 
     private constructor() {
         super("hall");
@@ -25,6 +27,23 @@ class Hall extends eui.Compont {
         this.listUsers.itemRenderer = HallUserGrid;
         this.listUsers.dataProvider = new eui.ArrayCollection();
 
+        Utils.addListener(this.groupModify, egret.TouchEvent.TOUCH_TAP, function() {
+            EditDialog.showEditDialog({
+                hintText: "取一个响亮的名字吧",
+                inputDefault: Me.userInfo.nickname,
+                thisObject: this,
+                onConfirm: function(text: string) {
+                    if (! upload.SetNickname.setNickname(text)) {
+                        return true;
+                    }
+
+                    return false;
+                },
+            });
+        }, this);
+
+        Utils.addListener(this.groupRefresh, egret.TouchEvent.TOUCH_TAP, this.requestGetUserList, this);
+
         this.connect();
 
         EventMgr.instance.addEventListener(EventMgr.USERINFO_CHANGE, function () {
@@ -34,28 +53,10 @@ class Hall extends eui.Compont {
 
     private connect() {
         var conn: Connection = Connection.instance;
-        conn.url = "ws://127.0.0.1:10001/hitplane";
         conn.connect();
 
-        this.requestGetTime();
         this.requestGetUserList();
-        Utils.timer(1000, 0, function () {
-            this.requestGetTime();
-            this.requestGetUserList();
-        }, this);
-    }
-
-    private timeRequestPoint: number = 0;
-    private requestGetTime() {
-        var curr: number = new Date().getTime();
-        if (curr - this.timeRequestPoint < 30000) {
-            return;
-        }
-
-        var suc: boolean = new upload.GetTime().send();
-        if (suc) {
-            this.timeRequestPoint = curr;
-        }
+        Utils.timer(1000, 0, this.requestGetUserList, this);
     }
 
     private userListRequestPoint: number = 0;

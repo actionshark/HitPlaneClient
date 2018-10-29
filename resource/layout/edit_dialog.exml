@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin width="900" height="600" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect left="0" right="0" top="0" bottom="0" fillColor="0xffffff" ellipseWidth="30" ellipseHeight="30" strokeWeight="2" strokeColor="0x666666"/>
+	<e:Label id="lbHint" text="提示" size="40" verticalCenter="-170" left="60" right="60" textAlign="center" textColor="0x333333"/>
+	<e:Rect left="60" right="60" fillColor="0xFFFFFF" ellipseWidth="30" ellipseHeight="30" strokeWeight="2" height="100" verticalCenter="0" strokeColor="0x666666"/>
+	<e:EditableText id="etInput" height="100" text="" left="60" right="60" textAlign="center" verticalAlign="middle" size="40" verticalCenter="0" prompt="点击输入" promptColor="0x666666" textColor="0x333333"/>
+	<e:Group id="groupCancel" width="180" height="80" bottom="60" left="60">
+		<e:Rect left="0" right="0" top="0" bottom="0" ellipseWidth="30" ellipseHeight="30" fillColor="0xffffff" strokeWeight="2" strokeColor="0x666666"/>
+		<e:Label text="取消" horizontalCenter="0" verticalCenter="0" size="40" textColor="0x333333"/>
+	</e:Group>
+	<e:Group id="groupConfirm" height="80" bottom="60" right="60" width="180">
+		<e:Rect left="0" right="0" top="0" bottom="0" ellipseWidth="30" ellipseHeight="30" fillColor="0xFFFFFF" strokeWeight="2" strokeColor="0x666666"/>
+		<e:Label text="确定" horizontalCenter="0" verticalCenter="0" size="40" textColor="0x333333"/>
+	</e:Group>
+</e:Skin>

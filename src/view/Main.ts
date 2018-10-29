@@ -42,8 +42,6 @@ class Main extends eui.Component {
         egret.registerImplementation("eui.IAssetAdapter", new AssetAdapter());
         egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
 
-        Bridge.callNative("onJsReady");
-
         var pl: PreviewLoading = new PreviewLoading();
         this.addChild(pl);
         pl.start();

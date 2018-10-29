@@ -17,10 +17,6 @@ class PreviewLoading extends eui.Component {
             RES.loadConfig(Config.DEF_RES_PATH, "resource/");
         });
 
-        Utils.timer(10, 1, function() {
-            Bridge.callNative("onLoadStart");
-        }, this);
-
         await new Promise(function(resolve, reject) {
             self.setHint("加载资源");
 

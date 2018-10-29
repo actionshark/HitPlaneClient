@@ -32,6 +32,7 @@
 		"resource/layout/battle_field.exml",
 		"resource/layout/battle_field_grid.exml",
 		"resource/layout/battle_request.exml",
+		"resource/layout/edit_dialog.exml",
 		"resource/layout/hall.exml",
 		"resource/layout/hall_user_grid.exml",
 		"resource/layout/toast.exml"
