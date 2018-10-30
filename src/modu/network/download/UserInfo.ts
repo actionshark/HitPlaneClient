@@ -13,8 +13,6 @@ namespace download {
 
             var event: egret.Event = new egret.Event(EventMgr.USERINFO_CHANGE);
             EventMgr.instance.dispatchEvent(event);
-
-            new upload.GetTime().send();
         }
     }
 }

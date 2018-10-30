@@ -27,7 +27,7 @@ class Hall extends eui.Compont {
         this.listUsers.itemRenderer = HallUserGrid;
         this.listUsers.dataProvider = new eui.ArrayCollection();
 
-        Utils.addListener(this.groupModify, egret.TouchEvent.TOUCH_TAP, function() {
+        Utils.addListener(this.groupModify, egret.TouchEvent.TOUCH_TAP, function () {
             EditDialog.showEditDialog({
                 hintText: "取一个响亮的名字吧",
                 inputDefault: Me.userInfo.nickname,
@@ -42,7 +42,9 @@ class Hall extends eui.Compont {
             });
         }, this);
 
-        Utils.addListener(this.groupRefresh, egret.TouchEvent.TOUCH_TAP, this.requestGetUserList, this);
+        Utils.addListener(this.groupRefresh, egret.TouchEvent.TOUCH_TAP, function() {
+            this.requestGetUserList(true);
+        }, this);
 
         this.connect();
 
@@ -56,13 +58,15 @@ class Hall extends eui.Compont {
         conn.connect();
 
         this.requestGetUserList();
-        Utils.timer(1000, 0, this.requestGetUserList, this);
+        Utils.timer(1000, 0, function() {
+            this.requestGetUserList();
+        }, this);
     }
 
     private userListRequestPoint: number = 0;
-    private requestGetUserList() {
+    private requestGetUserList(force: boolean = false) {
         var curr: number = new Date().getTime();
-        if (curr - this.userListRequestPoint < 5000) {
+        if (!force && curr - this.userListRequestPoint < 5000) {
             return;
         }
 

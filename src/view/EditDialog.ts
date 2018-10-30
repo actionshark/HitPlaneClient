@@ -23,14 +23,18 @@ class EditDialog extends eui.Compont {
     private data;
 
     private constructor(data) {
-        super("edit_dialog");
-
-        this.data = data;
-
-        this.updateView();
+        super("edit_dialog", data);
     }
 
-    public onComplete() {
+    public onComplete(data) {
+        this.data = data;
+        
+        this.lbHint.text = this.data.hintText || "点击下方输入";
+
+        this.etInput.text = this.data.inputDefault || "";
+        this.etInput.prompt = this.data.inputPrompt || "点击输入";
+        this.etInput.maxChars = this.data.maxChars || 20;
+
         Utils.addListener(this.groupCancel, egret.TouchEvent.TOUCH_TAP, function () {
             if (this.data.onCancel) {
                 var notClose: boolean = this.data.onCancel.call(this.data.thisObject);
@@ -52,14 +56,6 @@ class EditDialog extends eui.Compont {
 
             this.close();
         }, this);
-    }
-
-    private updateView() {
-        this.lbHint.text = this.data.hintText || "点击下方输入";
-
-        this.etInput.text = this.data.inputDefault || "";
-        this.etInput.prompt = this.data.inputPrompt || "点击输入";
-        this.etInput.maxChars = this.data.maxChars || 20;
     }
 
     private close() {

@@ -19,6 +19,8 @@ class Main extends eui.Component {
         Main._instance = this;
 
         Bridge.register();
+
+        Bridge.callNative("getDeviceInfo");
     }
 
     protected createChildren(): void {

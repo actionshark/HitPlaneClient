@@ -26,6 +26,9 @@ class BattleField extends eui.Compont {
             Main.instance.showWindow({
                 window: window,
                 fullScreen: true,
+                onBackDown: function () {
+                    return true;
+                },
             });
         }
 
@@ -63,6 +66,9 @@ class BattleField extends eui.Compont {
     private sclMap: eui.Scroller;
     private listMap: eui.List;
 
+    private groupTop: eui.Group;
+    private groupBtm: eui.Group;
+
     private idTop: number;
     private idBtm: number;
     private idTurn: number;
@@ -74,22 +80,32 @@ class BattleField extends eui.Compont {
     public onComplete() {
         this.listMap.itemRenderer = BattleFieldGrid;
 
-        var timer: egret.Timer = Utils.timer(1000, 0, function () {
-            this.onTimer(timer);
+        Utils.addListener(this.groupBtm, egret.TouchEvent.TOUCH_TAP, function () {
+            if (this.isTurn == 0) {
+                this.closeView();
+                return;
+            }
+
+            SimpleDialog.showDialog({
+                hint: "要退出战斗吗？",
+                buttons: ["取消", "确定",],
+                thisObject: this,
+                callback: function(index) {
+                    if (index == 1) {
+                        this.closeView();
+                    }
+                },
+            });
         }, this);
     }
 
-    private onTimer(timer: egret.Timer) {
+    private updateTurn() {
         if (this.idTop == this.idTurn) {
-            this.rectTurnTop.visible = timer.currentCount % 2 == 0;
+            this.rectTurnTop.visible = true;
+            this.rectTurnBtm.visible = false;
         } else {
             this.rectTurnTop.visible = false;
-        }
-
-        if (this.idBtm == this.idTurn) {
-            this.rectTurnBtm.visible = timer.currentCount % 2 == 0;
-        } else {
-            this.rectTurnBtm.visible = false;
+            this.rectTurnBtm.visible = true;
         }
     }
 
@@ -130,6 +146,8 @@ class BattleField extends eui.Compont {
         }
 
         this.listMap.dataProvider = dp;
+
+        this.updateTurn();
     }
 
     private onTurnChange(data: download.TurnChange) {
@@ -144,6 +162,8 @@ class BattleField extends eui.Compont {
 
             dp.itemUpdated(item);
         }
+
+        this.updateTurn();
     }
 
     private onBattleEnd(data: download.BattleEnd) {
@@ -178,5 +198,9 @@ class BattleField extends eui.Compont {
         } else {
             client.owner = BattleFieldGrid.OWNER_NULL;
         }
+    }
+
+    private closeView() {
+        Main.instance.removeWindow(this);
     }
 }
