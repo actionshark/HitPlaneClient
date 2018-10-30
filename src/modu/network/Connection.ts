@@ -16,8 +16,8 @@ class Connection {
 
     private ws: egret.WebSocket;
 
-    public url: string ="ws://111.231.232.54:10001/hitplane";
-    // public url: string ="ws://127.0.0.1:10001/hitplane";
+    public url: string = "ws://111.231.232.54:10001/hitplane";
+    // public url: string = "ws://127.0.0.1:10001/hitplane";
 
     private isConnecting: boolean = false;
 
@@ -65,13 +65,11 @@ class Connection {
     }
 
     private onConnect() {
-        Toast.showToast("连接成功");
+        Hall.instance.setHint("已连接");
 
         this.isConnecting = false;
 
-        var login: upload.Login = new upload.Login();
-        login.username = Me.deviceId || "test";
-        login.send();
+        new upload.Login().send();
     }
 
     private onData() {
@@ -96,10 +94,12 @@ class Connection {
 
     private onError(event: egret.IOErrorEvent) {
         console.log("connection.onError()");
+
+        Hall.instance.setHint("连接出错");
     }
 
     private onClose() {
-        Toast.showToast("连接已断开");
+        Hall.instance.setHint("连接断开");
 
         this.isConnecting = false;
 

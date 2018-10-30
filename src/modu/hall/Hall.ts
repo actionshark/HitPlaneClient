@@ -12,10 +12,12 @@ class Hall extends eui.Compont {
 
     private sclUsers: eui.Scroller;
     private listUsers: eui.List;
-    private groupRefresh: eui.Group;
 
-    private lbNickname: eui.Label;
     private groupModify: eui.Group;
+    private lbNickname: eui.Label;
+
+    private groupRefresh: eui.Group;
+    private lbHint: eui.Label;
 
     private constructor() {
         super("hall");
@@ -32,8 +34,8 @@ class Hall extends eui.Compont {
                 hintText: "取一个响亮的名字吧",
                 inputDefault: Me.userInfo.nickname,
                 thisObject: this,
-                onConfirm: function(text: string) {
-                    if (! upload.SetNickname.setNickname(text)) {
+                onConfirm: function (text: string) {
+                    if (!upload.SetNickname.setNickname(text)) {
                         return true;
                     }
 
@@ -42,7 +44,7 @@ class Hall extends eui.Compont {
             });
         }, this);
 
-        Utils.addListener(this.groupRefresh, egret.TouchEvent.TOUCH_TAP, function() {
+        Utils.addListener(this.groupRefresh, egret.TouchEvent.TOUCH_TAP, function () {
             this.requestGetUserList(true);
         }, this);
 
@@ -58,7 +60,7 @@ class Hall extends eui.Compont {
         conn.connect();
 
         this.requestGetUserList();
-        Utils.timer(1000, 0, function() {
+        Utils.timer(1000, 0, function () {
             this.requestGetUserList();
         }, this);
     }
@@ -78,5 +80,9 @@ class Hall extends eui.Compont {
 
     public onUserList(list: download.UserInfo[]) {
         this.listUsers.dataProvider = new eui.ArrayCollection(list);
+    }
+
+    public setHint(text: string) {
+        this.lbHint.text = text;
     }
 }

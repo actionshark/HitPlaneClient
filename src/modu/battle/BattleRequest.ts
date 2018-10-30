@@ -57,16 +57,16 @@ class BattleRequest extends eui.Compont {
     }
 
     public onComplete() {
-        Utils.addListener(this.groupAccept, egret.TouchEvent.TOUCH_TAP, function () {
+        this.groupAccept.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
             BattleRequest.requestAccept(this.data.id);
         }, this);
 
-        Utils.addListener(this.groupCancel, egret.TouchEvent.TOUCH_TAP, function () {
+        this.groupCancel.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
             BattleRequest.requestRemove(this.data.id);
             BattleRequest.closeRequest(this.data.id);
         }, this);
 
-        Utils.addListener(this.groupRefuse, egret.TouchEvent.TOUCH_TAP, function () {
+        this.groupRefuse.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
             BattleRequest.requestRemove(this.data.id);
             BattleRequest.closeRequest(this.data.id);
         }, this);
