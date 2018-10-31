@@ -1,6 +1,6 @@
 namespace download {
     export class BattleEnd extends Download {
-        public winnerId: number;
+        public uid: number;
         public tiles: any[];
 
         public perform() {

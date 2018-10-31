@@ -87,7 +87,7 @@ class AI {
         return result[index];
     }
 
-    private count(): number[][] {
+    public count(): number[][] {
         var counts: number[][] = [];
         for (var row: number = 0; row < BattleField.ROW_NUM; row++) {
             counts[row] = [];

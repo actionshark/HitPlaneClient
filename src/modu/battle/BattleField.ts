@@ -27,6 +27,7 @@ class BattleField extends eui.Compont {
                 window: window,
                 fullScreen: true,
                 onBackDown: function () {
+                    window.showMenu();
                     return true;
                 },
             });
@@ -85,19 +86,9 @@ class BattleField extends eui.Compont {
         this.groupBtm.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
             if (this.idTurn == 0) {
                 this.closeView();
-                return;
+            } else {
+                this.showMenu();
             }
-
-            SimpleDialog.showDialog({
-                hint: "要退出战斗吗？",
-                buttons: ["取消", "确定",],
-                thisObject: this,
-                callback: function (index) {
-                    if (index == 1) {
-                        this.closeView();
-                    }
-                },
-            });
         }, this);
     }
 
@@ -105,9 +96,12 @@ class BattleField extends eui.Compont {
         if (this.idTop == this.idTurn) {
             this.lbHintTop.text = "行动中";
             this.lbHintBtm.text = "";
-        } else {
+        } else if (this.idBtm == this.idTurn) {
             this.lbHintTop.text = "";
             this.lbHintBtm.text = "行动中";
+        } else {
+            this.lbHintTop.text = "";
+            this.lbHintBtm.text = "关闭";
         }
     }
 
@@ -140,7 +134,7 @@ class BattleField extends eui.Compont {
 
         for (var i: number = 0; i < data.tiles.length; i++) {
             var tile = data.tiles[i];
-            var item = {};
+            var item: any = {};
 
             this.parseTile(tile, item);
 
@@ -153,6 +147,20 @@ class BattleField extends eui.Compont {
 
         if (Me.enableAI) {
             this.ai.init(data.tiles);
+            
+            var counts: number[][] = this.ai.count();
+
+            for (var row: number = 0; row < BattleField.ROW_NUM; row++) {
+                for (var col: number = 0; col < BattleField.COL_NUM; col++) {
+                    var item = dp.getItemAt(BattleField.COL_NUM * row + col);
+                    var cnt: number = counts[row][col];
+
+                    if (item.text != cnt) {
+                        item.text = cnt;
+                        dp.itemUpdated(item);
+                    }
+                }
+            }
 
             if (this.idTurn == Me.userInfo.id) {
                 var result: AIResult = this.ai.calc();
@@ -167,21 +175,19 @@ class BattleField extends eui.Compont {
     private onTurnChange(data: download.TurnChange) {
         this.idTurn = data.id;
 
-        if (data.tile) {
-            var dp: eui.ArrayCollection = this.listMap.dataProvider as eui.ArrayCollection;
-            var index: number = data.row * BattleField.COL_NUM + data.col;
+        var dp: eui.ArrayCollection = this.listMap.dataProvider as eui.ArrayCollection;
+        var index: number = data.row * BattleField.COL_NUM + data.col;
 
-            for (var i: number = 0; i < dp.length; i++) {
-                var item = dp.getItemAt(i);
+        for (var i: number = 0; i < dp.length; i++) {
+            var item = dp.getItemAt(i);
 
-                if (i == index) {
-                    this.parseTile(data.tile, item);
-                    item.showStroke = true;
-                    dp.itemUpdated(item);
-                } else if (item.showStroke) {
-                    item.showStroke = false;
-                    dp.itemUpdated(item);
-                }
+            if (i == index) {
+                this.parseTile(data.tile, item);
+                item.showStroke = true;
+                dp.itemUpdated(item);
+            } else if (item.showStroke) {
+                item.showStroke = false;
+                dp.itemUpdated(item);
             }
         }
 
@@ -189,8 +195,20 @@ class BattleField extends eui.Compont {
 
         if (Me.enableAI) {
             if (this.idTurn != 0) {
-                if (data.tile) {
-                    this.ai.onTurn(data.row, data.col, data.tile.status);
+                this.ai.onTurn(data.row, data.col, data.tile.status);
+
+                var counts: number[][] = this.ai.count();
+
+                for (var row: number = 0; row < BattleField.ROW_NUM; row++) {
+                    for (var col: number = 0; col < BattleField.COL_NUM; col++) {
+                        var item = dp.getItemAt(BattleField.COL_NUM * row + col);
+                        var cnt: number = counts[row][col];
+
+                        if (item.text != cnt) {
+                            item.text = cnt;
+                            dp.itemUpdated(item);
+                        }
+                    }
                 }
 
                 if (this.idTurn == Me.userInfo.id) {
@@ -206,27 +224,36 @@ class BattleField extends eui.Compont {
 
     private onBattleEnd(data: download.BattleEnd) {
         var tiles: any[] = data.tiles;
-        var dp: eui.ArrayCollection = this.listMap.dataProvider as eui.ArrayCollection;
 
-        for (var i: number = 0; i < tiles.length; i++) {
-            var tile = tiles[i];
-            var item = dp.getItemAt(i);
+        if (tiles) {
+            var dp: eui.ArrayCollection = this.listMap.dataProvider as eui.ArrayCollection;
 
-            item.status = tile.type == BattleFieldGrid.TILE_EMPTY ? BattleFieldGrid.STATUS_NORMAL : BattleFieldGrid.STATUS_GOAL;
+            for (var i: number = 0; i < tiles.length; i++) {
+                var tile = tiles[i];
+                var item = dp.getItemAt(i);
 
-            if (tile.owner == this.idTop) {
-                item.owner = BattleFieldGrid.OWNER_TOP;
-            } else if (tile.owner == this.idBtm) {
-                item.owner = BattleFieldGrid.OWNER_BTM;
-            } else {
-                item.owner = BattleFieldGrid.OWNER_NULL;
+                item.status = tile.type == BattleFieldGrid.TILE_EMPTY ? BattleFieldGrid.STATUS_NORMAL : BattleFieldGrid.STATUS_GOAL;
+
+                if (tile.owner == this.idTop) {
+                    item.owner = BattleFieldGrid.OWNER_TOP;
+                } else if (tile.owner == this.idBtm) {
+                    item.owner = BattleFieldGrid.OWNER_BTM;
+                } else {
+                    item.owner = BattleFieldGrid.OWNER_NULL;
+                }
+
+                dp.itemUpdated(item);
             }
-
-            dp.itemUpdated(item);
+        } else if (data.uid == Me.userInfo.id) {
+            Toast.showToast("逃跑成功");
+            this.closeView();
+        } else {
+            Toast.showToast("对方已逃跑");
+            this.idTurn = 0;
+            this.updateTurn();
         }
 
-        this.lbHintTop.text = "";
-        this.lbHintBtm.text = "关闭";
+        this.updateTurn();
     }
 
     private parseTile(server, client) {
@@ -239,6 +266,21 @@ class BattleField extends eui.Compont {
         } else {
             client.owner = BattleFieldGrid.OWNER_NULL;
         }
+    }
+
+    private showMenu() {
+        SimpleDialog.showDialog({
+            hint: "请选择",
+            buttons: ["退出", "暂离", "取消",],
+            thisObject: this,
+            callback: function (index) {
+                if (index == 0) {
+                    new upload.QuitBattle().send();
+                } else if (index == 1) {
+                    this.closeView();
+                }
+            },
+        });
     }
 
     private closeView() {

@@ -15,6 +15,7 @@ class BattleFieldGrid extends eui.ItemRender {
     private rectBg: eui.Rect;
     private rectTop: eui.Rect;
     private rectBtm: eui.Rect;
+    private lbText: eui.Label;
 
     public constructor() {
         super("battle_field_grid");
@@ -53,5 +54,11 @@ class BattleFieldGrid extends eui.ItemRender {
 
         this.rectTop.visible = this.data.owner == BattleFieldGrid.OWNER_TOP;
         this.rectBtm.visible = this.data.owner == BattleFieldGrid.OWNER_BTM;
+
+        if (this.data.text) {
+            this.lbText.text = this.data.text;
+        } else {
+            this.lbText.text = "";
+        }
     }
 }
