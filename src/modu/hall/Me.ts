@@ -3,5 +3,7 @@ class Me {
 
     public static deviceId: string;
 
-    public static enableAI: boolean = true;
+    public static get enableAI(): boolean {
+        return Me.userInfo.id == 1;
+    }
 }
