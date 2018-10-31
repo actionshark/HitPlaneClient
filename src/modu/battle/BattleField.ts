@@ -58,10 +58,10 @@ class BattleField extends eui.Compont {
     /////////////////////////////////////////////////////////////////////////
 
     private lbNicknameTop: eui.Label;
-    private rectTurnTop: eui.Label;
+    private lbHintTop: eui.Label;
 
     private lbNicknameBtm: eui.Label;
-    private rectTurnBtm: eui.Label;
+    private lbHintBtm: eui.Label;
 
     private sclMap: eui.Scroller;
     private listMap: eui.List;
@@ -73,6 +73,8 @@ class BattleField extends eui.Compont {
     private idBtm: number;
     private idTurn: number;
 
+    private ai: AI = new AI();
+
     public constructor() {
         super("battle_field");
     }
@@ -80,8 +82,8 @@ class BattleField extends eui.Compont {
     public onComplete() {
         this.listMap.itemRenderer = BattleFieldGrid;
 
-        Utils.addListener(this.groupBtm, egret.TouchEvent.TOUCH_TAP, function () {
-            if (this.isTurn == 0) {
+        this.groupBtm.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
+            if (this.idTurn == 0) {
                 this.closeView();
                 return;
             }
@@ -90,7 +92,7 @@ class BattleField extends eui.Compont {
                 hint: "要退出战斗吗？",
                 buttons: ["取消", "确定",],
                 thisObject: this,
-                callback: function(index) {
+                callback: function (index) {
                     if (index == 1) {
                         this.closeView();
                     }
@@ -101,11 +103,11 @@ class BattleField extends eui.Compont {
 
     private updateTurn() {
         if (this.idTop == this.idTurn) {
-            this.rectTurnTop.visible = true;
-            this.rectTurnBtm.visible = false;
+            this.lbHintTop.text = "行动中";
+            this.lbHintBtm.text = "";
         } else {
-            this.rectTurnTop.visible = false;
-            this.rectTurnBtm.visible = true;
+            this.lbHintTop.text = "";
+            this.lbHintBtm.text = "行动中";
         }
     }
 
@@ -148,6 +150,18 @@ class BattleField extends eui.Compont {
         this.listMap.dataProvider = dp;
 
         this.updateTurn();
+
+        if (Me.enableAI) {
+            this.ai.init(data.tiles);
+
+            if (this.idTurn == Me.userInfo.id) {
+                var result: AIResult = this.ai.calc();
+                var pb: upload.PlayBattle = new upload.PlayBattle();
+                pb.row = result.row;
+                pb.col = result.col;
+                pb.send();
+            }
+        }
     }
 
     private onTurnChange(data: download.TurnChange) {
@@ -157,13 +171,37 @@ class BattleField extends eui.Compont {
             var dp: eui.ArrayCollection = this.listMap.dataProvider as eui.ArrayCollection;
             var index: number = data.row * BattleField.COL_NUM + data.col;
 
-            var item = dp.getItemAt(index);
-            this.parseTile(data.tile, item);
+            for (var i: number = 0; i < dp.length; i++) {
+                var item = dp.getItemAt(i);
 
-            dp.itemUpdated(item);
+                if (i == index) {
+                    this.parseTile(data.tile, item);
+                    item.showStroke = true;
+                    dp.itemUpdated(item);
+                } else if (item.showStroke) {
+                    item.showStroke = false;
+                    dp.itemUpdated(item);
+                }
+            }
         }
 
         this.updateTurn();
+
+        if (Me.enableAI) {
+            if (this.idTurn != 0) {
+                if (data.tile) {
+                    this.ai.onTurn(data.row, data.col, data.tile.status);
+                }
+
+                if (this.idTurn == Me.userInfo.id) {
+                    var result: AIResult = this.ai.calc();
+                    var pb: upload.PlayBattle = new upload.PlayBattle();
+                    pb.row = result.row;
+                    pb.col = result.col;
+                    pb.send();
+                }
+            }
+        }
     }
 
     private onBattleEnd(data: download.BattleEnd) {
@@ -186,6 +224,9 @@ class BattleField extends eui.Compont {
 
             dp.itemUpdated(item);
         }
+
+        this.lbHintTop.text = "";
+        this.lbHintBtm.text = "关闭";
     }
 
     private parseTile(server, client) {

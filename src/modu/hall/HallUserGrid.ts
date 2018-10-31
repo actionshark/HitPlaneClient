@@ -7,7 +7,7 @@ class HallUserGrid extends eui.ItemRender {
     }
 
     public onCreate() {
-        Utils.addListener(this, egret.TouchEvent.TOUCH_TAP, function() {
+        Utils.addListener(this, egret.TouchEvent.TOUCH_TAP, function () {
             if (this.data.id != Me.userInfo.id) {
                 BattleRequest.requestBattle(this.data.id);
             }
@@ -21,7 +21,7 @@ class HallUserGrid extends eui.ItemRender {
         switch (this.data.status) {
             case download.UserInfo.STATUS_IDLE:
                 this.lbStatus.text = "空闲";
-                this.lbStatus.textColor = 0x99cc66;
+                this.lbStatus.textColor = 0x006600;
                 break;
 
             case download.UserInfo.STATUS_BATTLE:
@@ -33,7 +33,7 @@ class HallUserGrid extends eui.ItemRender {
                 this.lbStatus.text = "观战中";
                 this.lbStatus.textColor = 0x0066cc;
                 break;
-            
+
             default:
                 this.lbStatus.text = "未知";
                 this.lbStatus.textColor = 0x000000;

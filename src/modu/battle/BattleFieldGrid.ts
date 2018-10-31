@@ -49,6 +49,8 @@ class BattleFieldGrid extends eui.ItemRender {
 
         this.rectBg.fillColor = fillColor;
 
+        this.rectBg.strokeWeight = this.data.showStroke ? 10 : 0;
+
         this.rectTop.visible = this.data.owner == BattleFieldGrid.OWNER_TOP;
         this.rectBtm.visible = this.data.owner == BattleFieldGrid.OWNER_BTM;
     }

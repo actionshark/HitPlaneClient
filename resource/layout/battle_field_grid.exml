@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin width="120" height="120" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Rect id="rectBg" left="0" right="0" top="0" bottom="0" fillColor="0xffffff"/>
-	<e:Rect id="rectTop" height="10" left="10" right="10" top="10" ellipseWidth="10" ellipseHeight="10" fillColor="0x666666"/>
-	<e:Rect id="rectBtm" left="10" right="10" ellipseWidth="10" ellipseHeight="10" fillColor="0x666666" bottom="10" height="10"/>
+	<e:Rect id="rectBg" left="0" right="0" top="0" bottom="0" fillColor="0xffffff" strokeWeight="4" strokeColor="0x003399"/>
+	<e:Rect id="rectTop" height="10" left="10" right="10" top="20" ellipseWidth="10" ellipseHeight="10" fillColor="0x666666"/>
+	<e:Rect id="rectBtm" left="10" right="10" ellipseWidth="10" ellipseHeight="10" fillColor="0x666666" bottom="20" height="10"/>
 </e:Skin>
