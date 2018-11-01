@@ -35,7 +35,7 @@ class AI {
             this.map[row] = [];
 
             for (var col: number = 0; col < BattleField.COL_NUM; col++) {
-                var status: number = tiles[index++].status
+                var status: number = tiles[index++].status;
 
                 this.map[row][col] = status;
 

@@ -285,5 +285,7 @@ class BattleField extends eui.Compont {
 
     private closeView() {
         Main.instance.removeWindow(this);
+
+        new upload.GetUserList().send();
     }
 }
