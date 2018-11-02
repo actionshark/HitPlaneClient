@@ -16,8 +16,8 @@ class Connection {
 
     private ws: egret.WebSocket;
 
-    public url: string = "ws://111.231.232.54:10001/hitplane";
-    // public url: string = "ws://127.0.0.1:10001/hitplane";
+    public url: string = "ws://111.231.232.54:10001";
+    // public url: string = "ws://127.0.0.1:10001";
 
     private isConnecting: boolean = false;
 
