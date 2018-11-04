@@ -4,6 +4,7 @@ namespace download {
 
         public perform() {
             if (this.error) {
+                Hall.instance.setHint("登录出错");
                 Toast.showToast(this.error);
                 return;
             }
@@ -11,7 +12,7 @@ namespace download {
             Hall.instance.setHint("已登录");
 
             new upload.GetTime().send();
-            new upload.GetBattleInfo().send();
+            // TODO
         }
     }
 }

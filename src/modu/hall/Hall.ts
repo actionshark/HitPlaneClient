@@ -10,14 +10,15 @@ class Hall extends eui.Compont {
 
     ///////////////////////////////////////////////
 
-    private sclUsers: eui.Scroller;
-    private listUsers: eui.List;
+    private sclRooms: eui.Scroller;
+    private listRooms: eui.List;
 
-    private groupModify: eui.Group;
     private lbNickname: eui.Label;
-
-    private groupRefresh: eui.Group;
+    private lbMoney: eui.Label;
     private lbHint: eui.Label;
+
+    private groupNickname: eui.Group;
+    private groupRefresh: eui.Group;
 
     private constructor() {
         super("hall");
@@ -26,10 +27,10 @@ class Hall extends eui.Compont {
     public onComplete() {
         this.height = Main.instance.stage.stageHeight;
 
-        this.listUsers.itemRenderer = HallUserGrid;
-        this.listUsers.dataProvider = new eui.ArrayCollection();
+        this.listRooms.itemRenderer = HallRoomGrid;
+        this.listRooms.dataProvider = new eui.ArrayCollection();
 
-        Utils.addListener(this.groupModify, egret.TouchEvent.TOUCH_TAP, function () {
+        Utils.addListener(this.groupNickname, egret.TouchEvent.TOUCH_TAP, function () {
             EditDialog.showEditDialog({
                 hintText: "取一个响亮的名字吧",
                 inputDefault: Me.userInfo.nickname,
@@ -45,41 +46,41 @@ class Hall extends eui.Compont {
         }, this);
 
         Utils.addListener(this.groupRefresh, egret.TouchEvent.TOUCH_TAP, function () {
-            this.requestGetUserList(true);
+            this.requestGetRoomList(true);
         }, this);
 
         this.connect();
 
         EventMgr.instance.addEventListener(EventMgr.USERINFO_CHANGE, function () {
             this.lbNickname.text = Me.userInfo.nickname;
+            this.lbMoney.text = Me.userInfo.money;
         }, this);
     }
 
     private connect() {
-        var conn: Connection = Connection.instance;
-        conn.connect();
+        Connection.instance.connect();
 
-        this.requestGetUserList();
+        this.requestGetRoomList();
         Utils.timer(1000, 0, function () {
-            this.requestGetUserList();
+            this.requestGetRoomList();
         }, this);
     }
 
-    private userListRequestPoint: number = 0;
-    private requestGetUserList(force: boolean = false) {
+    private roomListRequestPoint: number = 0;
+    private requestGetRoomList() {
         var curr: number = new Date().getTime();
-        if (!force && curr - this.userListRequestPoint < 5000) {
+        if (curr - this.roomListRequestPoint < 5000) {
             return;
         }
 
-        var suc: boolean = new upload.GetUserList().send();
+        var suc: boolean = new upload.GetRoomList().send();
         if (suc) {
-            this.userListRequestPoint = curr;
+            this.roomListRequestPoint = curr;
         }
     }
 
-    public onUserList(list: download.UserInfo[]) {
-        this.listUsers.dataProvider = new eui.ArrayCollection(list);
+    public onRoomList(rooms: download.Room[]) {
+        this.listRooms.dataProvider = new eui.ArrayCollection(rooms);
     }
 
     public setHint(text: string) {

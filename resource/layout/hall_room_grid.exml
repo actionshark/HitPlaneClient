@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin width="1280" height="200" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect left="0" right="0" top="0" bottom="0" ellipseWidth="30" ellipseHeight="30" fillColor="0xeeeeee" />
+	<e:Group width="230" height="160" verticalCenter="0" horizontalCenter="-480">
+		<e:Rect top="0" bottom="0" left="0" right="0" fillAlpha="0" strokeWeight="4" ellipseWidth="60" ellipseHeight="60" strokeColor="0x3399cc"/>
+		<e:Label id="lbUser0" text="玩家" size="50" textAlign="center" textColor="0x333333" scaleX="1" scaleY="1" left="0" right="0" top="0" bottom="0" verticalAlign="middle"/>
+	</e:Group>
+	<e:Group width="230" height="160" verticalCenter="0" horizontalCenter="-220">
+		<e:Rect top="0" bottom="0" left="0" right="0" fillAlpha="0" strokeWeight="4" ellipseWidth="60" ellipseHeight="60" strokeColor="0x3399CC"/>
+		<e:Label id="lbUser1" text="玩家" size="50" textAlign="center" textColor="0x333333" scaleX="1" scaleY="1" left="0" right="0" top="0" bottom="0" verticalAlign="middle"/>
+	</e:Group>
+	<e:Group width="230" height="160" verticalCenter="0" horizontalCenter="40">
+		<e:Rect top="0" bottom="0" left="0" right="0" fillAlpha="0" strokeWeight="4" ellipseWidth="60" ellipseHeight="60" strokeColor="0x3399CC"/>
+		<e:Label id="lbUser2" text="玩家" size="50" textAlign="center" textColor="0x333333" scaleX="1" scaleY="1" left="0" right="0" top="0" bottom="0" verticalAlign="middle"/>
+	</e:Group>
+	<e:Group width="230" height="160" verticalCenter="0" horizontalCenter="300">
+		<e:Rect top="0" bottom="0" left="0" right="0" fillAlpha="0" strokeWeight="4" ellipseWidth="60" ellipseHeight="60" strokeColor="0x3399CC"/>
+		<e:Label id="lbUser3" text="玩家" size="50" textAlign="center" textColor="0x333333" scaleX="1" scaleY="1" left="0" right="0" top="0" bottom="0" verticalAlign="middle"/>
+	</e:Group>
+
+
+
+
+	<e:Group id="groupJoin" width="160" height="100" verticalCenter="0" right="30">
+		<e:Rect left="0" right="0" top="0" bottom="0" ellipseWidth="30" ellipseHeight="30"  fillColor="0x3399cc"/>
+		<e:Label id="lbJoin" text="加入" horizontalCenter="0" verticalCenter="0" size="50"  textColor="0xffffff"/>
+	</e:Group>
+</e:Skin>
