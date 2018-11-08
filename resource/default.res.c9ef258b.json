@@ -1,6 +1,6 @@
 {
     "groups": [{
-        "keys": "border_png,button_down_png,button_up_png,checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,handle_png,header_png,off_png,on_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,selected_png,thumb_pb_png,thumb_png,track_pb_png,track_png,track_sb_png,tracklight_png",
+        "keys": "border_png,button_down_png,button_up_png,checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,handle_png,header_png,off_png,on_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,selected_png,suit_club_png,suit_diamond_png,suit_heart_png,suit_spade_png,thumb_pb_png,thumb_png,track_pb_png,track_png,track_sb_png,tracklight_png",
         "name": "preload"
     }, {
         "keys": "",
@@ -74,6 +74,22 @@
             "name": "selected_png",
             "type": "image",
             "url": "assets/ItemRenderer/selected_94efb852.png"
+        }, {
+            "name": "suit_club_png",
+            "type": "image",
+            "url": "image/poker/suit_club_22f0fd2c.png"
+        }, {
+            "name": "suit_diamond_png",
+            "type": "image",
+            "url": "image/poker/suit_diamond_4f2ba829.png"
+        }, {
+            "name": "suit_heart_png",
+            "type": "image",
+            "url": "image/poker/suit_heart_39fa3541.png"
+        }, {
+            "name": "suit_spade_png",
+            "type": "image",
+            "url": "image/poker/suit_spade_61fd781b.png"
         }, {
             "name": "thumb_pb_png",
             "type": "image",
